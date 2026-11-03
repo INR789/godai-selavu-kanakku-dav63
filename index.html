@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ta">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#126b60">
+<title>செலவுக் கணக்கு</title><link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="top"><div class="brand"><span class="logo">₹</span><div><strong>செலவுக் கணக்கு</strong><small>சிறிய பதிவு. தெளிவான திட்டம்.</small></div></div><button id="logout" class="outline" hidden>வெளியேறு</button></header>
+<main>
+<section id="auth" class="auth-layout">
+<div class="intro"><span class="eyebrow">உங்கள் பணம் • உங்கள் கட்டுப்பாடு</span><h1>ஒவ்வொரு செலவும்,<br>ஒரே இடத்தில்.</h1><p>தினசரிச் செலவுகளைப் பதிவு செய்யுங்கள். வகை வாரியாகப் பிரித்து, மாதத்தின் செலவுப் போக்கை அறியுங்கள்.</p><div class="sample"><span>பதிவு உதாரணங்கள்</span><div>உணவு <strong>₹150</strong></div><div>பயணம் <strong>₹80</strong></div><div>மளிகை <strong>₹650</strong></div><small>இவை விளக்கத்திற்கான உதாரணங்கள் மட்டுமே.</small></div></div>
+<section class="card auth-card"><h2 id="auth-title">மீண்டும் வருக!</h2><p id="auth-description" class="muted">உங்கள் கணக்கில் உள்நுழையுங்கள்.</p><form id="auth-form"><label for="email">மின்னஞ்சல்</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com" required><label for="password">கடவுச்சொல்</label><input id="password" type="password" autocomplete="current-password" minlength="6" required><small>குறைந்தது 6 எழுத்துகள்.</small><button id="auth-submit" type="submit" disabled>உள்நுழை</button></form><button id="auth-toggle" class="text-button">புதிய பயனரா? கணக்கை உருவாக்கு</button><p class="note">புதிய கணக்கிற்கு மின்னஞ்சல் உறுதிப்படுத்தல் தேவைப்படலாம். உங்கள் பதிவுகளை நீங்கள் மட்டுமே பார்க்க முடியும்.</p><p id="connection" role="status" class="muted">சேவையுடன் இணைக்கப்படுகிறது…</p></section>
+</section>
+<section id="dashboard" hidden>
+<div class="page-heading"><div><span class="eyebrow">மாதாந்திர பார்வை</span><h1>என் செலவுகள்</h1><p id="user-email" class="muted"></p></div><div><label for="month">மாதத்தைத் தேர்ந்தெடு</label><input type="month" id="month" required></div></div>
+<div class="stats"><article class="stat primary"><span>மொத்தச் செலவு</span><strong id="total">₹0</strong><small id="month-caption"></small></article><article class="stat"><span>செலவுப் பதிவுகள்</span><strong id="count">0</strong><small>தேர்ந்தெடுத்த மாதத்தில்</small></article><article class="stat"><span>அதிகச் செலவு வகை</span><strong id="top-category">—</strong><small id="top-amount">இன்னும் பதிவுகள் இல்லை</small></article></div>
+<div class="workspace"><section class="card entry"><h2 id="entry-title">புதிய செலவு</h2><p class="muted">இன்றைய செலவை இப்போதே பதிவு செய்யுங்கள்.</p><form id="expense-form"><label for="amount">தொகை (₹)</label><input id="amount" type="number" min="0.01" max="999999999" step="0.01" inputmode="decimal" placeholder="0.00" required><div class="form-row"><div><label for="date">தேதி</label><input id="date" type="date" required></div><div><label for="category">வகை</label><select id="category"></select></div></div><label for="description">குறிப்பு <span class="muted">(விருப்பம்)</span></label><input id="description" maxlength="160" placeholder="எ.கா. மதிய உணவு"><button id="save" type="submit">செலவைச் சேமி</button><button id="cancel-edit" type="button" class="outline" hidden>திருத்தத்தை ரத்துசெய்</button></form></section>
+<section class="card breakdown"><h2>வகை வாரியான சுருக்கம்</h2><p class="muted">உங்கள் பணம் எங்கே செல்கிறது?</p><div id="bars"></div><p class="note">இந்தச் சுருக்கம் தேர்ந்தெடுத்த மாதத்தின் அனைத்து செலவுகளையும் காட்டுகிறது.</p></section></div>
+<section class="card records"><div class="records-heading"><div><h2>செலவுப் பட்டியல்</h2><p id="list-caption" class="muted"></p></div><div class="filters"><label for="filter" class="sr-only">வகை வடிகட்டி</label><select id="filter"><option value="">அனைத்து வகைகள்</option></select><button id="refresh" class="outline">புதுப்பி</button></div></div><div id="records"></div></section>
+</section>
+<p id="message" role="status" aria-live="polite" hidden></p>
+</main>
+<footer>செலவை அறிந்தால், சேமிப்பு எளிதாகும்.</footer>
+<dialog id="delete-dialog" aria-labelledby="delete-title"><h2 id="delete-title">பதிவை நீக்கவா?</h2><p>இந்தச் செலவுப் பதிவு நிரந்தரமாக நீக்கப்படும்.</p><div class="dialog-actions"><button id="keep" class="outline">வேண்டாம்</button><button id="confirm-delete">ஆம், நீக்கு</button></div></dialog>
+<script type="module">
+try {
+  const { init } = await import('./app.js');
+  const { GodDB } = await import('./godai-db.js');
+  await init(GodDB);
+} catch (error) {
+  document.getElementById('auth-submit').disabled = true;
+  document.getElementById('connection').textContent = 'கணக்கு சேவையை இணைக்க முடியவில்லை. வழங்கப்பட்ட godai-db.js கோப்பு மற்றும் இணைய இணைப்பைச் சரிபார்த்து மீண்டும் திறக்கவும்.';
+}
+</script>
+</body></html>
